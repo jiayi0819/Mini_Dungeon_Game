@@ -29,7 +29,17 @@ public class Interactor : MonoBehaviour
             {
                 if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
 
-                if (Keyboard.current.eKey.wasPressedThisFrame) _interactable.Interact(this);
+                //if (Keyboard.current.eKey.wasPressedThisFrame) _interactable.Interact(this);
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    DialogueTrigger objectDialogue = _colliders[0].GetComponent<DialogueTrigger>();
+
+                    // 2. If the object DOES have the script, run its dialogue!
+                    if (objectDialogue != null)
+                    {
+                        objectDialogue.TriggerDialogue();
+                    }
+                }
             }
         }else
         {
