@@ -33,6 +33,7 @@ public class InteractionPromptUI : MonoBehaviour
 
     public void Close()
     {
+        _promptText.text = "";
         _uiPanel.SetActive(false);
         IsDisplayed = false;
 

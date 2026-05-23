@@ -11,6 +11,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactableMask;
     [SerializeField] private InteractionPromptUI _interactionPromptUI;
+    [SerializeField] private DialogueManager _dialogueManager; //to check if dialogue is there
 
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
@@ -19,6 +20,14 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
+
+        // Close Prompt Text Panel if Dialogue already started
+        if (_dialogueManager != null && _dialogueManager.isDialogueActive)
+        {
+            if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+            return;
+        }
+
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders, _interactableMask);
 
         if (_numFound > 0)
@@ -27,18 +36,24 @@ public class Interactor : MonoBehaviour
 
             if (_interactable != null)
             {
+                Debug.Log("Show prompt panel.");
+
                 if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
 
-                //if (Keyboard.current.eKey.wasPressedThisFrame) _interactable.Interact(this);
+                
                 if (Keyboard.current.eKey.wasPressedThisFrame)
                 {
-                    DialogueTrigger objectDialogue = _colliders[0].GetComponent<DialogueTrigger>();
+                    if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+                    _interactable.Interact(this);
+
+                    //DialogueTrigger objectDialogue = _colliders[0].GetComponent<DialogueTrigger>();
 
                     // 2. If the object DOES have the script, run its dialogue!
-                    if (objectDialogue != null)
-                    {
-                        objectDialogue.TriggerDialogue();
-                    }
+                    //if (objectDialogue != null)
+                    //{
+                    //    if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+                    //    objectDialogue.TriggerDialogue();
+                    //}
                 }
             }
         }else

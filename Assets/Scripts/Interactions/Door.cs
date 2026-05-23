@@ -5,22 +5,35 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
+    public Dialogue dialogue;
 
     public string InteractionPrompt => _prompt;
 
     public bool Interact(Interactor interactor)
     {
-        var inventory = interactor.GetComponent<Inventory>();
 
-        if (inventory == null) return false;
+        // Find the DialogueManager and feed it this sign's unique dialogue data
+        DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
 
-        if (inventory.HasKey)
+        if (dialogueManager != null)
         {
-            Debug.Log("Opening Door!");
+            dialogueManager.StartDialogue(dialogue);
             return true;
         }
 
-        Debug.Log("No Key found!");
         return false;
+
+        //var inventory = interactor.GetComponent<Inventory>();
+
+        //if (inventory == null) return false;
+
+        //if (inventory.HasKey)
+        //{
+        //    Debug.Log("Opening Door!");
+        //    return true;
+        //}
+
+        //Debug.Log("No Key found!");
+        //return false;
     }
 }

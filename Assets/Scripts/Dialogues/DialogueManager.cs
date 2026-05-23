@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
     
     // To track if a dialogue box is currently open on screen
-    private bool isDialogueActive = false;
+    public bool isDialogueActive = false;
 
     // Start is called before the first frame update
     void Start()
