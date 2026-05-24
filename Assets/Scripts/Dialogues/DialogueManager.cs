@@ -12,15 +12,16 @@ public class DialogueManager : MonoBehaviour
     
     public Animator animator;
 
-    private Queue<string> sentences;
-    
+    //private Queue<string> sentences;
+    private Queue<DialogueLine> lines;
+
     // To track if a dialogue box is currently open on screen
     public bool isDialogueActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        sentences = new Queue<string>();
+        lines = new Queue<DialogueLine>();
     }
 
     // This handles the keyboard listening every frame
@@ -40,19 +41,17 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue (Dialogue dialogue)
     {
-        nameText.text = dialogue.name;
-
         // To trigger dialogue box animation
         animator.SetBool("IsOpen", true);
 
         // As flag for checking keyboard input
         isDialogueActive = true;
 
-        sentences.Clear();
+        lines.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        foreach (DialogueLine line in dialogue.dialogueLines)
         {
-            sentences.Enqueue(sentence);
+            lines.Enqueue(line);
         }
 
         DisplayNextSentence();
@@ -60,13 +59,15 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 0)
+        if (lines.Count == 0)
         {
             EndDialogue();
             return;
         }
-        string sentence = sentences.Dequeue();
-        dialogueText.text = sentence;
+        DialogueLine currentLine = lines.Dequeue();
+
+        nameText.text = currentLine.speakerName; // Updates the speaker name dynamically per line!
+        dialogueText.text = currentLine.sentence;   // Updates the text line
     }
     void EndDialogue()
     {

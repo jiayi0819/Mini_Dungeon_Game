@@ -112,6 +112,13 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			if (IsDialoguePlaying())
+			{
+				// Free the mouse so they can see/use it if needed
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+				return; // Stop running movement logic completely!
+			}
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
@@ -119,6 +126,7 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
+			if (IsDialoguePlaying()) return; // Freeze camera pitch and player turning!
 			CameraRotation();
 		}
 
@@ -263,6 +271,12 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+		// Put this at the bottom of the script, right above the last }
+		private bool IsDialoguePlaying()
+		{
+			DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
+			return dialogueManager != null && dialogueManager.isDialogueActive;
 		}
 	}
 }
