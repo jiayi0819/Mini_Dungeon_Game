@@ -9,6 +9,10 @@ public class InteractionPromptUI : MonoBehaviour
     [SerializeField] private GameObject _uiPanel;
     [SerializeField] private TextMeshProUGUI _promptText;
 
+    public bool IsDisplayed = false;
+    
+    // ADD THIS: A global way to lock the prompt when menus are open
+    public bool IsLocked = false;
 
     private void Start()
     {
@@ -22,10 +26,13 @@ public class InteractionPromptUI : MonoBehaviour
     //    transform.LookAt(transform.position + rotation * Vector3.forward, rotation * Vector3.up);
     //}
 
-    public bool IsDisplayed = false;
+
 
     public void SetUp(string promptText)
     {
+        // MODIFY THIS: If it's locked, don't let it show up!
+        if (IsLocked) return;
+
         _promptText.text = promptText;
         _uiPanel.SetActive(true);
         IsDisplayed = true;

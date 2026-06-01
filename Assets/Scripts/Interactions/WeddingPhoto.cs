@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractable
+public class WeddingPhoto : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
     public Dialogue dialogue;
@@ -22,18 +22,5 @@ public class Door : MonoBehaviour, IInteractable
         }
 
         return false;
-
-        //var inventory = interactor.GetComponent<Inventory>();
-
-        //if (inventory == null) return false;
-
-        //if (inventory.HasKey)
-        //{
-        //    Debug.Log("Opening Door!");
-        //    return true;
-        //}
-
-        //Debug.Log("No Key found!");
-        //return false;
     }
 }

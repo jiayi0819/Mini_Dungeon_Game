@@ -112,7 +112,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			if (IsDialoguePlaying())
+			if (IsDialoguePlaying() || IsInputShowing())
 			{
 				// Free the mouse so they can see/use it if needed
 				Cursor.lockState = CursorLockMode.None;
@@ -126,7 +126,7 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			if (IsDialoguePlaying()) return; // Freeze camera pitch and player turning!
+			if (IsDialoguePlaying() || IsInputShowing()) return; // Freeze camera pitch and player turning!
 			CameraRotation();
 		}
 
@@ -277,6 +277,12 @@ namespace StarterAssets
 		{
 			DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
 			return dialogueManager != null && dialogueManager.isDialogueActive;
+		}
+
+		private bool IsInputShowing()
+		{
+			PasswordMenuManager passworsMenuManager = FindObjectOfType<PasswordMenuManager>();
+			return passworsMenuManager != null && passworsMenuManager.isPasswordInputActive;
 		}
 	}
 }

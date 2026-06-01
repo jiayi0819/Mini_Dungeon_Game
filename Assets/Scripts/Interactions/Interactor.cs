@@ -36,7 +36,7 @@ public class Interactor : MonoBehaviour
 
             if (_interactable != null)
             {
-                Debug.Log("Show prompt panel.");
+                //Debug.Log("Show prompt panel.");
 
                 if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
 
