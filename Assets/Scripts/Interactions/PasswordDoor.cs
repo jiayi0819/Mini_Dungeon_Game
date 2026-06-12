@@ -52,8 +52,6 @@ public class Door : MonoBehaviour, IInteractable
         yield return null;
 
         // 3. Keep waiting here AS LONG AS the dialogue box is still open/active
-        // NOTE: Replace 'isOpen' with whatever variable your DialogueManager uses 
-        // to track if it's currently running (e.g., 'isActive', 'isTalking', etc.)
         while (dialogueManager.isDialogueActive == true)
         {
             yield return null; // Pauses here and checks again next frame
@@ -106,7 +104,6 @@ public class Door : MonoBehaviour, IInteractable
         // Add your actual door opening code here (e.g., Animator trigger or destroying the object)
         // Destroy(gameObject); // Temporary placeholder
         
-        
         // 1. TRIGGER DOOR ANIMATIONS
 
         if (_leftDoorAnimator != null)
@@ -118,5 +115,17 @@ public class Door : MonoBehaviour, IInteractable
         {
             _rightDoorAnimator.SetTrigger("OpenRight");
         }
+
+        // ========================================================
+        // REMOVE BOX COLLIDER
+        // ========================================================
+        if (TryGetComponent<BoxCollider>(out BoxCollider parentCollider))
+        {
+            parentCollider.enabled = false;
+            Debug.Log("Parent Box Collider disabled permanently!");
+        }
+
+        // Disables the script component so it stops answering calls
+        this.enabled = false;
     }
 }
