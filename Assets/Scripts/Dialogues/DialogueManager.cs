@@ -18,6 +18,9 @@ public class DialogueManager : MonoBehaviour
     // To track if a dialogue box is currently open on screen
     public bool isDialogueActive = false;
 
+    // Lets other scripts look at how many lines are left!
+    public int RemainingLinesCount => lines != null ? lines.Count : 0;
+
     // Start is called before the first frame update
     void Start()
     {
