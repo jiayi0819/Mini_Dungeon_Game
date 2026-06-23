@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class StoryKey : MonoBehaviour, IInteractable
 {
-    [SerializeField] private string _prompt = "Pick up key";
+    [SerializeField] private string _prompt;
+    [SerializeField] private PlayerInventory playerInventory;
+
     public Dialogue dialogue;
 
     [Header("Door Setup")]

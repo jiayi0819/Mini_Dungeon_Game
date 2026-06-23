@@ -36,25 +36,27 @@ public class Interactor : MonoBehaviour
 
             if (_interactable != null)
             {
-                //Debug.Log("Show prompt panel.");
+                // Get the text first and check if it's blank!
+                string promptText = _interactable.InteractionPrompt;
 
-                if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
-
-                
-                if (Keyboard.current.eKey.wasPressedThisFrame)
+                if (string.IsNullOrEmpty(promptText))
                 {
+                    // If the mirror says "", hide the panel and do not allow interaction!
                     if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
-                    _interactable.Interact(this);
-
-                    //DialogueTrigger objectDialogue = _colliders[0].GetComponent<DialogueTrigger>();
-
-                    // 2. If the object DOES have the script, run its dialogue!
-                    //if (objectDialogue != null)
-                    //{
-                    //    if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
-                    //    objectDialogue.TriggerDialogue();
-                    //}
                 }
+                else
+                {
+                    if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
+
+
+                    if (Keyboard.current.eKey.wasPressedThisFrame)
+                    {
+                        if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+                        _interactable.Interact(this);
+
+                    }
+                }
+
             }
         }else
         {
