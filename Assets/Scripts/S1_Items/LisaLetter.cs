@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloodStainedCoat : MonoBehaviour, IInteractable
+public class LisaLetter : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
     public Dialogue dialogue;
+    public bool HasInteracted => _hasTriggered;
+    private bool _hasTriggered = false;
 
     public string InteractionPrompt => _prompt;
 
@@ -17,6 +19,7 @@ public class BloodStainedCoat : MonoBehaviour, IInteractable
 
         if (dialogueManager != null)
         {
+            _hasTriggered = true;
             dialogueManager.StartDialogue(dialogue);
             return true;
         }

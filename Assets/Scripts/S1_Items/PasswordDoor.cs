@@ -12,6 +12,9 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private Animator _rightDoorAnimator;
 
     public Dialogue dialogue;
+    public bool HasInteracted => _hasTriggered;
+
+    private bool _hasTriggered = false;
 
     public string InteractionPrompt => _prompt;
 
@@ -34,6 +37,7 @@ public class Door : MonoBehaviour, IInteractable
 
         if (dialogueManager != null)
         {
+            _hasTriggered = true;
             Debug.Log("Starting Dialogue Sequence...");
             // Instead of running everything at once, we start a Coroutine sequence
             StartCoroutine(DialogueThenPasswordSequence(dialogueManager));

@@ -8,23 +8,25 @@ public class StoryKey : MonoBehaviour, IInteractable
     [SerializeField] private PlayerInventory playerInventory;
 
     public Dialogue dialogue;
+    public bool HasInteracted => _hasTriggered;
+
+    private bool _hasTriggered = false;
 
     [Header("Door Setup")]
     [SerializeField] private Transform _doorTransform; // Drag the door object (or hinge) here
     [SerializeField] private float _openSpeed = 2f;     // How fast the door swings open
 
     public string InteractionPrompt => _prompt;
-    private bool _hasInteracted = false;
 
     public bool Interact(Interactor interactor)
     {
-        if (_hasInteracted) return false;
+        if (_hasTriggered) return false;
 
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
 
         if (dialogueManager != null)
         {
-            _hasInteracted = true;
+            _hasTriggered = true;
             StartCoroutine(DialogueThenOpenSequence(dialogueManager));
             return true;
         }

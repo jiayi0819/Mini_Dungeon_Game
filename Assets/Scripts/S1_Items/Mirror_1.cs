@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmptyBottle : MonoBehaviour, IInteractable
+public class Mirror_1 : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
     public Dialogue dialogue;
+    public bool HasInteracted => _hasTriggered;
+
+    private bool _hasTriggered = false;
 
     public string InteractionPrompt => _prompt;
 
@@ -13,8 +16,6 @@ public class EmptyBottle : MonoBehaviour, IInteractable
     [SerializeField] private SceneFadeIn _fader;         // Drag your Black Image UI object here
     [SerializeField] private Transform _wakeUpPoint;     // Drag an empty GameObject placed in the new room
     [SerializeField] private Transform _playerTransform; // Drag your Player object here
-
-    private bool _hasTriggered = false; // Prevents the player from spamming the mirror
 
     public bool Interact(Interactor interactor)
     {

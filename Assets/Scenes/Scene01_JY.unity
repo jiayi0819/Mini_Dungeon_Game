@@ -58613,15 +58613,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1358c2b94adf570418a29a979c8f0871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: "\u3010\u93E1\u5B50\u3011 \u6309E\u9375\u67E5\u770B"
+  _prompt: "\u3010\u7D19\u689D\u3011 \u6309E\u9375\u67E5\u770B"
   dialogue:
     dialogueLines:
-    - speakerName: ???
-      sentence: "\u93E1\u5B50\uFF1F"
-    - speakerName: ???
-      sentence: "\u9019\u662F\u6211\u7684\u81C9\uFF1F"
-    - speakerName: ???
-      sentence: "\u9019\u662F\u6211\u7684\u81C9\uFF1F"
+    - speakerName: "\u7D19\u689D"
+      sentence: "\u5BC6\u78BC\u662F\u6211\u5011\u7684\u7D00\u5FF5\u65E5\uFF0C\u6211\u60F3\u6D77\u5FB7\u4E0D\u6703\u8A18\u5F97\u7684\uFF0C\u4ED6\u5411\u4F86\u5C31\u5C0D\u6211\u7684\u4E8B\u4E0D\u5C51\u4E00\u9867\u3002"
 --- !u!4 &2074968151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1604264725143045460, guid: ab52575a7bb2b244a9dd104afe101920, type: 3}

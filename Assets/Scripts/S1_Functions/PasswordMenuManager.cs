@@ -25,6 +25,15 @@ public class PasswordMenuManager : MonoBehaviour
         inputField.onEndEdit.AddListener(OnHitEnter);
     }
 
+    private void Update()
+    {
+        // --- ADDED: Press ESC to close the menu and back away ---
+        if (isPasswordInputActive && Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseMenu();
+        }
+    }
+
     public void ShowPasswordMenu(string correctPassword, Action onSuccess)
     {
         _correctPassword = correctPassword;
@@ -34,25 +43,19 @@ public class PasswordMenuManager : MonoBehaviour
         panel.SetActive(true);
         inputField.text = "";
 
-        // Start the focus sequence safely
         StartCoroutine(ForceFocusSequence());
     }
 
     private System.Collections.IEnumerator ForceFocusSequence()
     {
-        // 1. Wait exactly 1 frame to let the Panel turn on and layout update
         yield return null;
 
-        // 2. Clear any weird selection states
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
-
-            // 3. Force select the actual text box object
             EventSystem.current.SetSelectedGameObject(inputField.gameObject);
         }
 
-        // 4. Force the blinking cursor alive
         inputField.ActivateInputField();
         inputField.Select();
     }
@@ -77,7 +80,11 @@ public class PasswordMenuManager : MonoBehaviour
         {
             Debug.Log("Wrong Code!");
             inputField.text = "";
-            StartCoroutine(ForceFocusSequence()); // Refocus automatically on fail
+            StartCoroutine(ForceFocusSequence());
+
+            // NOTE: If you ALSO want the panel to completely close on a wrong password, 
+            // uncomment the line below:
+            // CloseMenu();
         }
     }
 

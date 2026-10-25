@@ -8,17 +8,18 @@ public class Mirror_2 : MonoBehaviour
     [Header("Dialogues")]
     public Dialogue dialoguePart1;
     public Dialogue dialoguePart2;
+    public bool HasInteracted => _hasTriggered;
+
+    private bool _hasTriggered = false;
 
     [SerializeField] private PlayerInventory _playerInventory;
 
     [Header("Horror Elements")]
     [SerializeField] private GameObject _flashPhotoB;
 
-    private bool _hasInteracted = false;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (_hasInteracted) return;
+        if (_hasTriggered) return;
 
         PlayerInventory inventory = other.GetComponent<PlayerInventory>();
 
@@ -28,7 +29,7 @@ public class Mirror_2 : MonoBehaviour
 
             if (dialogueManager != null)
             {
-                _hasInteracted = true;
+                _hasTriggered = true;
                 // Run the simple linear sequence
                 StartCoroutine(SplitDialogueSequence(dialogueManager));
             }

@@ -6,13 +6,14 @@ public class FirePlace : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
     public Dialogue dialogue;
+    public bool HasInteracted => _hasTriggered;
+    private bool _hasTriggered = false;
 
     [Header("Door Setup")]
     [SerializeField] private Transform _doorTransform; // Drag the door object (or hinge) here
     [SerializeField] private float _openSpeed = 2f;     // How fast the door swings open
 
     public string InteractionPrompt => _prompt;
-    private bool _hasInteracted = false;
 
     public bool Interact(Interactor interactor)
     {
@@ -22,7 +23,7 @@ public class FirePlace : MonoBehaviour, IInteractable
 
         if (dialogueManager != null)
         {
-            _hasInteracted = true;
+            _hasTriggered = true;
             StartCoroutine(DialogueThenOpenSequence(dialogueManager));
             return true;
         }

@@ -19,6 +19,9 @@ public class GunChest : MonoBehaviour, IInteractable
     [SerializeField] private string _prompt;
 
     public string InteractionPrompt => _prompt;
+    public bool HasInteracted => _hasTriggered;
+
+    private bool _hasTriggered = false;
 
     public bool Interact(Interactor interactor)
     {
@@ -46,6 +49,7 @@ public class GunChest : MonoBehaviour, IInteractable
             Debug.Log("2. Player HAS the key. Opening chest...");
 
             // PLAYER HAS KEY -> Open it!
+            _hasTriggered = true;
             isBoxOpened = true;
             playerInventory.hasGun = true;
             dialogueManager.StartDialogue(openBoxDialogue);

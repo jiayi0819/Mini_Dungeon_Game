@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunKey : MonoBehaviour, IInteractable
+public class JekyllDiary : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
-    [SerializeField] private PlayerInventory playerInventory;
     public Dialogue dialogue;
+    public bool HasInteracted => _hasTriggered;
+
+    private bool _hasTriggered = false;
 
     public string InteractionPrompt => _prompt;
 
@@ -18,9 +20,8 @@ public class GunKey : MonoBehaviour, IInteractable
 
         if (dialogueManager != null)
         {
-            playerInventory.hasKey = true;
+            _hasTriggered = true;
             dialogueManager.StartDialogue(dialogue);
-            Destroy(gameObject);
             return true;
         }
 
