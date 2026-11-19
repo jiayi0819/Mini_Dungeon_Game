@@ -34,22 +34,23 @@ public class GunChest : MonoBehaviour, IInteractable
     IEnumerator BoxInteractionCoroutine()
     {
         Debug.Log("1. Coroutine started successfully!");
+        _hasTriggered = true;
 
         // Find the DialogueManager right when we need it
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
         if (dialogueManager == null)
         {
-            yield break;
             Debug.LogError("ERROR: Could not find DialogueManager in the scene!");
+            yield break;
         }
 
-            // 1. Check if the player has the key
-            if (playerInventory != null && playerInventory.hasKey == true)
+        // 1. Check if the player has the key
+        if (playerInventory != null && playerInventory.hasKey == true)
         {
             Debug.Log("2. Player HAS the key. Opening chest...");
 
             // PLAYER HAS KEY -> Open it!
-            _hasTriggered = true;
+            
             isBoxOpened = true;
             playerInventory.hasGun = true;
             dialogueManager.StartDialogue(openBoxDialogue);
